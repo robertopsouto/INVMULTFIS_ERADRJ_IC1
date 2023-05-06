@@ -37,7 +37,7 @@ Universidade Católica de Petrópolis (UCP)\\
 \end{resumo}
 
 \section{Introdução}
-Este trabalho tem como objetivo explorar a eficiência da paralelização no código CSEM3D, utilizando como ferramenta de paralelização o OpenMPI e como recursos computacionais foram utilizados de 1 até 384 nós computacionais. O experimento consiste na confecção de duas linhas apresentando a média de tempo de execução do código CSEM3D, uma das linhas apresentando no máximo 24 processos MPI por nó computacional, já na outra representando um máximo de 48 processos pro nó computacional.
+Este trabalho tem como objetivo explorar a eficiência da paralelização no código CSEM 3D, utilizando como ferramenta de paralelização o OpenMPI e como recursos computacionais foram utilizados de 1 até 384 nós computacionais. O experimento consiste na confecção de duas linhas apresentando a média de tempo de execução do código CSEM 3D, uma das linhas apresentando no máximo 24 processos MPI por nó computacional, já na outra representando um máximo de 48 processos pro nó computacional.
 
 \section{CSEM} \label{sec:firstpage}
 Controlled-Source Eletromagnetic (CSEM) é um método de mapeamento geofisico empregando um monitoramento eletromagnético através de sensores remotos para mapear a resistência elétrica da superfície aquática, este método utilizado em larga escala por diversas aplicações na área mineral e de mineração(Castillo-Reyes
@@ -53,10 +53,23 @@ Octavio et al; Newman \& Alumbaugh 1997; Eidesmo et al.2002; Avdeev 2005; Consta
 \begin{figure}[ht]
 \centering
 \includegraphics[width=.7\textwidth]{figures/perfpernode.png}
-\caption{This figure is an example of a figure caption taking more than one line and justified considering margins mentioned in.}
+\caption{Está imagem apresenta um comparativo entre as linhas de média de 24 e 48 processos MPI por nó.}
 \label{fig:48pernode}
 \end{figure}
 
+\begin{figure}[ht]
+\centering
+\includegraphics[width=.7\textwidth]{figures/perfupto48pernode.png}
+\caption{Nessa imagem foi foram executados jobs utilizando respectivamente: 1, 1, 1, 2, 4, 8 nós computacionais e no máximo 48 processos por nó.}
+\label{fig:48MPI}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=.7\textwidth]{figures/perfupto48pernode.png}
+\caption{Nessa imagem foi foram executados jobs utilizando respectivamente: 1, 1, 2, 4, 8, 16 nós computacionais e no máximo 24 processos por nó.}
+\label{fig:24MPI}
+\end{figure}
 
 \section{Comentários}
 
@@ -66,6 +79,11 @@ Bibliographic references must be unambiguous and uniform.  We recommend giving
 the author names references in brackets, e.g. \cite{knuth:84},
 \cite{boulic:91}, and \cite{smith:99}.
 
+$$
+
+  Castillo-Reyes, Octavio, et al. “Parallel 3-D Marine Controlled-Source Electromagnetic Modelling Using High-Order Tetrahedral Nédélec Elements.” Geophysical Journal International, vol. 219, no. 1, Oct. 2019, pp. 39–65, https://doi.org/10.1093/gji/ggz285.
+
+$$
 The references must be listed using 12 point font size, with 6 points of space
 before each reference. The first line of each reference should not be
 indented, while the subsequent should be indented by 0.5 cm.
