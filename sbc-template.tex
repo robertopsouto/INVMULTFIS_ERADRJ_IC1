@@ -33,27 +33,30 @@ Universidade Católica de Petrópolis (UCP)\\
 \end{abstract}
      
 \begin{resumo} 
-  Este trabalho apresenta resultado de execução paralela no supercomputador Santos Dumont, de implementação do método CSEM 3D. Neste trabalho foram desesnvolvidos conceitos e métodos de implementação de processamento paralelo, operando com grande nível de recursos computacionais. Com isso pudemos através do experimento empirico, constatar que a operação de grande quantidade de recursos, não é um sinônimo de eficiência.
+Este trabalho apresenta resultado de execução paralela no supercomputador Santos Dumont, de implementação do método CSEM 3D. Neste trabalho foram desesnvolvidos conceitos e métodos de implementação de processamento paralelo, operando com grande nível de recursos computacionais. Com isso pudemos através do experimento empirico, constatar que a operação de grande quantidade de recursos, não é um sinônimo de eficiência.
 \end{resumo}
 
 \section{Introdução}
-Este trabalho tem como objetivo explorar a eficiência da paralelização no código CSEM3D, utilizando como ferramenta de paralelização o OpenMPI e como recursos computacionais foram utilizados de 1 até 384 nós computacionais. O experimento consiste na confecção de duas linhas apresentando a média de tempo de execução do código CSEM3D, uma das linhas apresentando no máximo 24 processos MPI por nó computacional, já na outra representando um máximo de 48 processos pro nó computacional.
+Controlled-Source Eletromagnetic (CSEM) é um método de mapeamento geofisico que emprega um monitoramento eletromagnético através de sensores para mapear a resistência elétrica da superfície aquática. Este método é utilizado em larga escala para diversas aplicações, tais como a exploração de hidrocarboneto utilizando tecnologia embarcada. Este trabalho teve como objetivo explorar a eficiência da paralelização MPI do código CSEM 3D~\cite{zerilli2014broadband,zerilli2016broadband}. Como recursos computacionais foram utilizados de 12 até 384 processos MPI no supercomputador Santos Dumont (SDumont).  É apresentada uma análise de desempenho paralelo para dois cenários: utilizando todos os núcleos computacionais e metade deles em cada nó. Percebeu-se uma sensível melhora no desempenho da aplicação com a segunda estratégia.
 
-\section{CSEM} \label{sec:firstpage}
-Controlled-Source Eletromagnetic (CSEM) é um método de mapeamento geofisico empregando um monitoramento eletromagnético através de sensores remotos para mapear a resistência elétrica da superfície aquática, este método utilizado em larga escala por diversas aplicações na área mineral e de mineração(Castillo-Reyes
-Octavio et al; Sheard et al.2005; Yang \& Oldenburg 2012), estudos de condutividade de cristais(Castillo-Reyes
-Octavio et al; Hördt et al.1992, 2000), caracterização de armazenamento de CO2 (Castillo-Reyes
-Octavio et al; Girard et al.2011), projeção de reservatório geotérmico (Castillo-Reyes
-Octavio et al; Coppo et al.2016) e exploração de hidrocarboneto utilizando tecnologia embarcada (Castillo-Reyes
-Octavio et al; Newman \& Alumbaugh 1997; Eidesmo et al.2002; Avdeev 2005; Constable 2006; Srnka et al.2006; Orange et al.2009; Börner 2010; Constable 2010). 
-\section{Processamento Paralelo}
 
-\section{Resultados}
-
+\section{Metodologia}
+\label{sec:metodo}
+%
+Um diagrama com a arquitetura de CPU multi-core Intel\textregistered~Xeon\textregistered~Gold~6252 disponível entre os nós computacionais Sequana do SDumont é mostrado na Figura~\ref{fig:sequananode}. Cada um destes nós possuem 48 núcleos divididos em 2 sockets contendo 24 núcleos cada. A fim de obter uma análise do comportamento paralelo do código CSEM 3D, foram realizadas execuções paralelas no supercomputador Santos Dumont variando-se de 12 até 384 processos MPI, organizadas e configuradas conforme mostrado na Tabela~\ref{tab:parallelconfig}. Numa primeira configuração, são utilizados o máximo de 48 núcleos computacionais disponíveis entre os nós computacionais Sequana do SDumont. E em outra configuração, são empregados no máximo 24 núcleos por nó.
+%
+\begin{figure}
+\centering
+\includegraphics[width=.66\textwidth]{figures/sequanacpudev.png}
+\caption{Arquitetura de um nó computacional Sequana no SDumont.}
+\label{fig:sequananode}
+\end{figure}
+%
 \begin{table}
 \centering
 \footnotesize
-\caption{Número total de processos MPI, havendo no máximo 48 ou 24 processos MPI por nó, respectivamente nas segunda e terceiras colunas.}
+\caption{Número total de processos MPI, havendo no máximo 48 ou 24 processos MPI por nó, respectivamente nas segunda e terceira colunas.}
+\label{tab:parallelconfig}
 \begin{tabular}{crr}
 \hline
 %	&	Máximo de processos MPI por nó	&		\\
@@ -71,19 +74,12 @@ Octavio et al; Newman \& Alumbaugh 1997; Eidesmo et al.2002; Avdeev 2005; Consta
 \end{tabular}
 \end{table}
 
+\section{Resultados}
 
 
-
-\begin{figure}
+\begin{figure}[ht]
 \centering
-\includegraphics[width=.66\textwidth]{figures/sequanacpudev.png}
-\caption{Arquitetura de um nó computacional Sequana no SDumont.}
-\label{fig:sequananode}
-\end{figure}
-
-\begin{figure}
-\centering
-\includegraphics[width=.60\textwidth]{figures/perfpernode.png}
+\includegraphics[width=.5\textwidth]{figures/perfpernode.png}
 \caption{Tempo de processamento paralelo com até 384 processos MPI, usando no máximo 48 processos MPI por nó (linha tracejada), e no máximo 24 processos MPI por nó.}
 \label{fig:perfpernode}
 \end{figure}
@@ -92,14 +88,8 @@ Octavio et al; Newman \& Alumbaugh 1997; Eidesmo et al.2002; Avdeev 2005; Consta
 \section{Comentários}
 
 
-
-Bibliographic references must be unambiguous and uniform.  We recommend giving
-the author names references in brackets, e.g. \cite{knuth:84},
-\cite{boulic:91}, and \cite{smith:99}.
-
-The references must be listed using 12 point font size, with 6 points of space
-before each reference. The first line of each reference should not be
-indented, while the subsequent should be indented by 0.5 cm.
+\section*{Agradecimentos}
+Os autores agradecem a Petróleo Brasileiro S.A. pelo apoio à pesquisa por meio do Termo de Colaboração número 0050.0121778.22.9. Os autores também agradecem ao Laboratório Nacional de Computação Científica (LNCC/MCTI) por fornecer recursos do supercomputador SDumont, que contribuíram para os resultados da pesquisa relatados neste artigo. \textbf{\url{http://sdumont.lncc.br}}.
 
 \bibliographystyle{sbc}
 \bibliography{sbc-template}
