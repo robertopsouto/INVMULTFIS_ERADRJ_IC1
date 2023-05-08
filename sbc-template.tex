@@ -11,7 +11,8 @@
 
 \title{Avaliação de desempenho de implementação paralela do método CSEM 3D no supecomputador Santos Dumont}
 
-\author{Mateus F. Lima de Souza\inst{1,2}, Rômulo T. Lima\inst{1,3}}
+\author{Mateus F. Lima de Souza\inst{1,2}, Rômulo T. Lima\inst{1,3}, Roberto P. Souto\inst{1}, \\ 
+        Antônio Tadeu A. Gomes\inst{1}, Tiziano Labruzzo\inst{1,4}, Andrea Zerilli\inst{1,4}}
 
 \address{  Laboratório Nacional de Computação Científica (LNCC)\\
   Getúlio Vargas Av., 333, Quitandinha Petrópolis - RJ - Brasil
@@ -21,7 +22,10 @@
 \nextinstitute
 Universidade Católica de Petrópolis (UCP)\\
   R. Barão do Amazonas, 124 - Centro, Petrópolis - RJ - Brasil  
-  \email{\{facanha,romulotl\}@lncc.br}
+\nextinstitute
+Zlemlink Ltda \\
+Rua Taylor 39, sala 805, Rio de Janeiro-RJ - Brasil  
+  \email{\{facanha,romulotl,atagomes,tiziano\}@lncc.br}
 }
 
 \begin{document} 
@@ -29,11 +33,11 @@ Universidade Católica de Petrópolis (UCP)\\
 \maketitle
 
 \begin{abstract}
-  This article show the results of a parallel execution at the supercomputer Santos Dumont, the implementation of method CSEM 3D.
+This work presents a parallel execution result in the Santos Dumont supercomputer for an implementation of the CSEM 3D method. Concepts and methods for implementing parallel processing were employed to emphasize the use of computational resources in each node. Thus, it can be verified that there is a limitation in the improvement of performance when increasing the number of computational cores used in the available multicore CPU architecture.
 \end{abstract}
      
 \begin{resumo} 
-Este trabalho apresenta resultado de execução paralela no supercomputador Santos Dumont, de implementação do método CSEM 3D. Neste trabalho foram desesnvolvidos conceitos e métodos de implementação de processamento paralelo, operando com grande nível de recursos computacionais. Com isso pudemos através do experimento empirico, constatar que a operação de grande quantidade de recursos, não é um sinônimo de eficiência.
+Este trabalho apresenta um resultado de execução paralela no supercomputador Santos Dumont para uma implementação do método CSEM 3D. Conceitos e métodos de implementação de processamento paralelo foram empregados para enfatizar o uso de recursos computacionais em cada nó. Assim, pode-se verificar que existe uma limitação na melhoria de desempenho ao aumentar o número de núcleos computacionais utilizados na arquitetura de CPU multicore disponível.
 \end{resumo}
 
 \section{Introdução}
@@ -43,7 +47,7 @@ Controlled-Source Eletromagnetic (CSEM) é um método de mapeamento geofisico qu
 \section{Metodologia}
 \label{sec:metodo}
 %
-Um diagrama com a arquitetura de CPU multi-core Intel\textregistered~Xeon\textregistered~Gold~6252 disponível entre os nós computacionais Sequana do SDumont é mostrado na Figura~\ref{fig:sequananode}. Cada um destes nós possuem 48 núcleos divididos em 2 sockets contendo 24 núcleos cada. A fim de obter uma análise do comportamento paralelo do código CSEM 3D, foram realizadas execuções paralelas no supercomputador Santos Dumont variando-se de 12 até 384 processos MPI, organizadas e configuradas conforme mostrado na Tabela~\ref{tab:parallelconfig}. Numa primeira configuração, são utilizados o máximo de 48 núcleos computacionais disponíveis entre os nós computacionais Sequana do SDumont. E em outra configuração, são empregados no máximo 24 núcleos por nó.
+Um diagrama com a arquitetura de CPU multi-core Intel\textregistered~Xeon\textregistered~Gold~6252 disponível entre os nós computacionais Sequana do SDumont é mostrado na Figura~\ref{fig:sequananode}. Cada um destes nós possuem 48 núcleos divididos em 2 sockets contendo 24 núcleos cada. A fim de obter uma análise do comportamento paralelo do código CSEM 3D, foram realizadas execuções paralelas no supercomputador Santos Dumont variando-se de 12 até 384 processos MPI\cite{mpi31}, usando OpenMPI v4.1.2 instalado com compilador GNU v9.3,  organizadas e configuradas conforme mostrado na Tabela~\ref{tab:parallelconfig}. Numa primeira configuração, são utilizados o máximo de 48 núcleos computacionais disponíveis entre os nós computacionais Sequana do SDumont. E em outra configuração, são empregados no máximo 24 núcleos por nó.
 %
 \begin{figure}
 \centering
@@ -76,7 +80,8 @@ Um diagrama com a arquitetura de CPU multi-core Intel\textregistered~Xeon\textre
 
 \section{Resultados}
 %
-O tempos de execução paralela obtidos podem ser visualizados na Figura~\ref{fig:perfpernode}, onde observa-se que o uso de todos nos núcleos em cada nó não resultou necessariamente em um melhor desempenho da aplicação. Pelo contrário, invariavelmente o tempo de processamento foi menor ao se utilizar 24 processos MPI por nó, quando comparado com 48 processo MPI por nó.
+O tempos de execução paralela obtidos podem ser visualizados na Figura~\ref{fig:perfpernode}, onde observa-se que o uso de todos nos núcleos em cada nó não resultou necessariamente em um melhor desempenho da aplicação. Pelo contrário, invariavelmente o tempo de processamento foi menor ao se utilizar 24 processos MPI por nó, quando comparado com 48 processos MPI por nó.
+É necessário realizar-se um estudo mais detalhado e aprofundado para descobrir as causas deste comportamento, e verificar a possibilidade de obter um efetivo ganho de desempenho utilizando-se todos os núcleos disponíveis em cada nó.
 %
 \begin{figure}[ht]
 \centering
@@ -87,6 +92,7 @@ O tempos de execução paralela obtidos podem ser visualizados na Figura~\ref{fi
 
 
 \section{Comentários}
+O estudo de desempenho apresentado neste trabalho mostrou que, para a arquitetura disponível no SDumont, o código paralelo CSEM 3D requer uma investigação mais detalhada para poder melhor entender a limitação observada na melhoria do desempenho paralelo ao se empregar todos os núcleos computacionais do nó. Pretende-se também verificar se este comportamento reproduz-se em outras arquiteturas computacionais de CPU multi-core, tais como a dos processadores AMD EPYC\texttrademark. Uma outra abordagem a ser pesquisada é o emprego de paralelismo em mais de um nível, através do uso paralelização em memória compartilhada com OpenMP~\cite{OpenMP}.
 
 
 \section*{Agradecimentos}
