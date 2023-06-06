@@ -80,19 +80,21 @@ Um diagrama com a arquitetura de CPU multi-core Intel\textregistered~Xeon\textre
 
 \section{Resultados}
 %
-O tempos de execução paralela obtidos podem ser visualizados na Figura~\ref{fig:perfpernode}, onde observa-se que o uso de todos nos núcleos em cada nó não resultou necessariamente em um melhor desempenho da aplicação. Pelo contrário, invariavelmente o tempo de processamento foi menor ao se utilizar 24 processos MPI por nó, quando comparado com 48 processos MPI por nó.
-É necessário realizar-se um estudo mais detalhado e aprofundado para descobrir as causas deste comportamento, e verificar a possibilidade de obter um efetivo ganho de desempenho utilizando-se todos os núcleos disponíveis em cada nó.
-%
+Os tempos de execução e eficiência paralela podem ser visualizados na Figura~\ref{fig:perfpernode}, onde observa-se que o uso de todos nos núcleos em cada nó não resultou necessariamente em um melhor desempenho da aplicação. Pelo contrário, invariavelmente o tempo de processamento foi menor ao se utilizar 24 processos MPI por nó, quando comparado com 48 processos MPI por nó. É necessário realizar-se uma investigação mais detalhada sobre as possíveis causas deste comportamento, tais como problemas relacionados à concorrência e contenção de acesso à memória, um maior número de \textit{cache misses}, ou ainda a falta de vinculação de processos MPI em nível de núcleo/soquete (\textit{core/socket binding}).
+
 \begin{figure}[ht]
 \centering
-\includegraphics[width=.45\textwidth]{figures/perfpernode.png}\includegraphics[width=.45\textwidth]{figures/eficiencia.png}
-\caption{Tempo de processamento paralelo e eficiência paralela com até 384 processos MPI, usando no máximo 48 processos MPI por nó (linha tracejada), e no máximo 24 processos MPI por nó.}
+\begin{tabular}{cc}
+\includegraphics[width=.5\textwidth]{figures/perfpernode.png}&\includegraphics[width=.5\textwidth]{figures/eficiencia.png} \\
+ \textbf{(a)} & \textbf{(b)}
+\end{tabular}
+\caption{Tempo de processamento paralelo (a) e eficiência paralela (b) com até 384 processos MPI, usando no máximo 48 processos MPI por nó (linha tracejada), e no máximo 24 processos MPI por nó.}
 \label{fig:perfpernode}
 \end{figure}
 
 
 \section{Comentários}
-O estudo de desempenho apresentado neste trabalho mostrou que, para a arquitetura disponível no SDumont, o código paralelo CSEM 3D requer uma investigação mais detalhada para poder melhor entender a limitação observada na melhoria do desempenho paralelo ao se empregar todos os núcleos computacionais do nó. Pretende-se também verificar se este comportamento reproduz-se em outras arquiteturas computacionais de CPU multi-core, tais como a dos processadores AMD EPYC\texttrademark. Uma outra abordagem a ser pesquisada é o emprego de paralelismo em mais de um nível, através do uso paralelização em memória compartilhada com OpenMP~\cite{OpenMP}.
+O estudo de desempenho apresentado neste trabalho mostrou que, para a arquitetura disponível no SDumont, o código paralelo CSEM 3D requer uma investigação mais detalhada para um melhor entendimento quanto a limitação observada na melhoria do desempenho paralelo ao se empregar todos os núcleos computacionais do nó. Pretende-se também verificar se este comportamento reproduz-se em outras arquiteturas computacionais de CPU multi-core, tais como a dos processadores AMD EPYC\texttrademark. Uma outra abordagem a ser pesquisada é o emprego de paralelismo em mais de um nível, através do uso paralelização em memória compartilhada com OpenMP~\cite{OpenMP}.
 
 
 \section*{Agradecimentos}
